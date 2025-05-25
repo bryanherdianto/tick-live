@@ -68,3 +68,44 @@ exports.deleteEvent = async (req, res) => {
         baseResponse(res, false, 500, 'Internal server error');
     }
 }
+
+exports.getEventByDate = async (req, res) => {
+    const { date } = req.params;
+    try {
+        if (!date||!isValidDate(date)) {
+            return baseResponse(res, false, 400, 'Invalid date format. Use YYYY-MM-DD');
+        }
+        const events = await eventRepository.getEventByDate(date);
+        if (events.length === 0) {
+            return baseResponse(res, false, 404, 'No events found for this date');
+        }
+        baseResponse(res, true, 200, 'Events fetched successfully', events);
+    } catch (error) {
+        console.error('Error fetching events by date:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+function isValidDate(dateStr) {
+    // Format YYYY-MM-DD
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateStr)) return false;
+    
+    // Check tanggal valid
+    const date = new Date(dateStr);
+    return date instanceof Date && !isNaN(date);
+}
+
+exports.getEventByName = async (req, res) => {
+    const { name } = req.params;
+    try {
+        const events = await eventRepository.getEventByName(name);
+        if (events.length === 0) {
+            return baseResponse(res, false, 404, 'No events found with this name');
+        }
+        baseResponse(res, true, 200, 'Events fetched successfully', events);
+    } catch (error) {
+        console.error('Error fetching events by name:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}

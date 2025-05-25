@@ -58,10 +58,30 @@ exports.deleteEvent = async (id) => {
 
 exports.getEventByLocationAndDate = async (locationId, date) => {
     try {
-        const res = await db.query('SELECT * FROM events WHERE location_id = $1 AND date = $2', [locationId, date]);
+        const res = await db.query('SELECT * FROM events WHERE location_id = $1 AND DATE(date) = DATE($2)', [locationId, date]);
         return res.rows;
     } catch (error) {
         console.error('Error fetching events by location and date:', error);
+        throw error;
+    }
+}
+
+exports.getEventByDate = async (date) => {
+    try {
+        const res = await db.query('SELECT * FROM events WHERE DATE(date) = DATE($1) ORDER BY date', [date]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching events by date:', error);
+        throw error;
+    }
+}
+
+exports.getEventByName = async (name) => {
+    try {
+        const res = await db.query('SELECT * FROM events WHERE name ILIKE $1', [`%${name}%`]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching events by name:', error);
         throw error;
     }
 }
