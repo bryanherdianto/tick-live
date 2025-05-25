@@ -64,3 +64,61 @@ exports.deleteSeat = async (req, res) => {
         baseResponse(res, false, 500, 'Internal server error');
     }
 }
+
+
+exports.sortAvailableSeatsByCheap() = async (req, res) => {
+    const eventId = req.params.eventId;
+    try {
+        const sortedSeats = await seatRepository.sortAvailableSeatsByCheap(eventId);
+        if (!sortedSeats || sortedSeats.length === 0) {
+            return baseResponse(res, false, 404, 'No available seats found for this event');
+        }
+        baseResponse(res, true, 200, 'Seats sorted by price successfully', sortedSeats);
+    } catch (error) {
+        console.error('Error sorting seats by price:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+exports.sortAvailableSeatsByExpensive = async (req, res) => {
+    const eventId = req.params.eventId;
+    try {
+        const sortedSeats = await seatRepository.sortAvailableSeatsByExpensive(eventId);
+        if (!sortedSeats || sortedSeats.length === 0) {
+            return baseResponse(res, false, 404, 'No available seats found for this event');
+        }
+        baseResponse(res, true, 200, 'Seats sorted by price successfully', sortedSeats);
+    } catch (error) {
+        console.error('Error sorting seats by price:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+
+exports.getAvailableSeatsByEventId = async (req, res) => {
+    const eventId = req.params.eventId;
+    try {
+        const seats = await seatRepository.getAvailableSeatsByEventId(eventId);
+        if (!seats || seats.length === 0) {
+            return baseResponse(res, false, 404, 'No seats found for this event');
+        }
+        baseResponse(res, true, 200, 'Seats fetched successfully', seats);
+    } catch (error) {
+        console.error('Error fetching seats by event ID:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndHierarchy = async (req, res) => {
+    const { eventId, hierarchy } = req.params;
+    try {
+        const seats = await seatRepository.getAvailableSeatsByEventIdAndHierarchy(eventId, hierarchy);
+        if (!seats || seats.length === 0) {
+            return baseResponse(res, false, 404, 'No seats found for this event and hierarchy');
+        }
+        baseResponse(res, true, 200, 'Seats fetched successfully', seats);
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and hierarchy:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}

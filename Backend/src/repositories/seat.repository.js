@@ -60,3 +60,43 @@ exports.deleteSeat = async (seatId) => {
         throw error;
     }
 }
+
+exports.sortAvailableSeatsByCheap = async (eventId) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price FROM seats WHERE event_id = $1 AND status = "Available" ORDER BY price ASC', [eventId]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error sorting available seats by cheap:', error);
+        throw error;
+    }
+}
+
+exports.sortAvailableSeatsByExpensive = async (eventId) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price FROM seats WHERE event_id = $1 AND status = "Available" ORDER BY price DESC', [eventId]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error sorting available seats by expensive:', error);
+        throw error;
+    }
+}
+
+exports.getAvailableSeatsByEventId = async (eventId) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price, status FROM seats WHERE event_id = $1 AND status = "Available"', [eventId]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching seats by event ID:', error);
+        throw error;
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndHierarchy = async (eventId, hierarchy) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price, status FROM seats WHERE event_id = $1 AND hierarchy = $2 AND status = "Available"', [eventId, hierarchy]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and hierarchy:', error);
+        throw error;
+    }
+}

@@ -68,3 +68,17 @@ exports.deleteEvent = async (req, res) => {
         baseResponse(res, false, 500, 'Internal server error');
     }
 }
+
+exports.getEventByLocationAndDate = async (req, res) => {
+    const { locationId, date } = req.query;
+    try {
+        const events = await eventRepository.getEventByLocationAndDate(locationId, date);
+        if (events.length === 0) {
+            return baseResponse(res, false, 404, 'No events found for this location and date');
+        }
+        baseResponse(res, true, 200, 'Events fetched successfully', events);
+    } catch (error) {
+        console.error('Error fetching events by location and date:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
