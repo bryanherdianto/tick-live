@@ -16,7 +16,7 @@
               <h5 class="mb-0">Filters</h5>
               <button class="btn btn-link text-gradient text-primary p-0 mb-0">Clear</button>
             </div>
-            <p class="text-sm mb-0">Find your perfect venue</p>
+            <p class="text-sm mb-0">Find your perfect event</p>
           </div>
           <div class="card-body p-3 pt-0">
             <!-- Mobile filters content -->
@@ -75,7 +75,7 @@
       <div class="row">
         <!-- Listings -->
         <div class="col-lg-8">
-          <router-link v-for="room in filteredRooms" :key="room.id" :to="`/events/${room.id}`"
+          <router-link v-for="event in filteredEvents" :key="event.id" :to="`/events/${event.id}`"
             class="text-decoration-none text-dark">
             <div class="card card-plain mb-4 overflow-hidden hover-shadow">
               <div class="row g-0">
@@ -83,27 +83,16 @@
                   <div class="position-absolute top-0 start-0 p-2">
                     <span class="badge bg-gradient-success">Available</span>
                   </div>
-                  <img :src="room.image" class="w-100 rounded-start" alt="room.name"
+                  <img :src="event.location_image" class="w-100 rounded-start" alt="event.name"
                     style="height: 100%; object-fit: cover;" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body p-3 p-md-4">
-                    <small class="text-uppercase text-muted">{{ room.location }}</small>
-                    <h5 class="mt-2 mb-2 font-weight-bold">{{ room.name }}</h5>
-                    <div class="mb-2">
-                      <i class="fa fa-star text-warning" v-for="n in room.rating" :key="'s' + n"></i>
-                      <i class="fa fa-star-o text-warning" v-for="n in 5 - room.rating" :key="'o' + n"></i>
-                      <span class="ms-2 text-muted small">{{ room.reviews }} reviews</span>
-                    </div>
-                    <p class="text-muted small"><i class="fa fa-map-marker me-1"></i> {{ room.address }}</p>
-                    <div class="mb-3">
-                      <span v-for="(amenity, idx) in room.amenities" :key="idx"
-                        class="badge bg-light text-dark me-2 mb-1">
-                        <i :class="amenity.icon"></i>&nbsp;&nbsp;{{ amenity.label }}
-                      </span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                      <h5 class="font-weight-bold mb-0">${{ room.price }} <small class="text-muted">/night</small></h5>
+                    <small class="text-uppercase text-muted">{{ event.location_name }}</small>
+                    <h5 class="mt-2 mb-2 font-weight-bold">{{ event.name }}</h5>
+                    <p class="text-muted small"><i class="fa fa-map-marker me-1"></i> {{ event.location_address
+                      }}</p>
+                    <div class="d-flex justify-content-end align-items-center mt-4">
                       <div class="btn bg-gradient-success btn-sm mb-0">View Details</div>
                     </div>
                   </div>
@@ -120,7 +109,7 @@
                 <h5 class="mb-0">Filters</h5>
                 <button class="btn btn-link text-gradient text-primary p-0 mb-0">Clear</button>
               </div>
-              <p class="text-sm mb-0">Find your perfect venue</p>
+              <p class="text-sm mb-0">Find your perfect event</p>
             </div>
             <div class="card-body p-3 pt-0">
               <!-- Popular filters -->
@@ -171,59 +160,25 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { fetchEvents } from '@/services/eventApi';
 
-// Example room data
-const rooms = ref([
-  {
-    id: 1,
-    image: "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/headers.jpg",
-    location: 'New York',
-    name: 'Urbanza Suites',
-    rating: 4,
-    reviews: 200,
-    address: 'Main Road 123 Street, 23 Colony',
-    amenities: [
-      { icon: 'fa fa-concierge-bell', label: 'Room Service' },
-      { icon: 'fa fa-mountain', label: 'Mountain View' },
-      { icon: 'fa fa-swimmer', label: 'Pool Access' },
-    ],
-    price: 399,
-    type: 'Family Suite'
-  },
-  {
-    id: 2,
-    image: "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/features.jpg",
-    location: 'Chicago',
-    name: 'Downtown Luxury',
-    rating: 5,
-    reviews: 124,
-    address: '456 State Street, Downtown',
-    amenities: [
-      { icon: 'fa fa-wifi', label: 'Free WiFi' },
-      { icon: 'fa fa-parking', label: 'Free Parking' },
-      { icon: 'fa fa-coffee', label: 'Breakfast' },
-    ],
-    price: 599,
-    type: 'Luxury Room'
-  },
-  {
-    id: 3,
-    image: "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/testimonials.jpg",
-    location: 'San Francisco',
-    name: 'Bay View Hotel',
-    rating: 4,
-    reviews: 78,
-    address: '789 Harbor Drive, Bay Area',
-    amenities: [
-      { icon: 'fa fa-utensils', label: 'Restaurant' },
-      { icon: 'fa fa-dumbbell', label: 'Fitness Center' },
-      { icon: 'fa fa-hot-tub', label: 'Hot Tub' },
-    ],
-    price: 299,
-    type: 'Double Bed'
+const event = ref(null);
+const error = ref(null);
+
+async function loadEvent() {
+  try {
+    event.value = await fetchEvents();
+    console.log('Event loaded:', event.value);
+  } catch (err) {
+    error.value = 'Failed to fetch event';
+    console.error(err);
   }
-]);
+};
+
+onMounted(async () => {
+  await loadEvent();
+});
 
 // Filters state
 const eventTypes = [
@@ -278,23 +233,28 @@ const sortOptions = [
 ];
 const selectedSort = ref('low-high');
 
-// Computed filtered and sorted rooms
-const filteredRooms = computed(() => {
-  let list = rooms.value;
+const filteredEvents = computed(() => {
+  if (!event.value || !event.value.payload) return [];
+
+  let list = event.value.payload;
+
   // Filter by type
   if (selectedTypes.value.length) {
     list = list.filter(r => selectedTypes.value.includes(r.type));
   }
+
   // Filter by price
   if (selectedRanges.value.length) {
     list = list.filter(r =>
       selectedRanges.value.some(range => r.price >= range.min && r.price <= range.max)
     );
   }
+
   // Sort
   if (selectedSort.value === 'low-high') list = list.slice().sort((a, b) => a.price - b.price);
   if (selectedSort.value === 'high-low') list = list.slice().sort((a, b) => b.price - a.price);
-  if (selectedSort.value === 'newest') list = list; // assume default order
+  if (selectedSort.value === 'newest') list = list; // default order
+
   return list;
 });
 </script>

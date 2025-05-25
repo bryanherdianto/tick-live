@@ -13,15 +13,15 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 ms-lg-5">
-            <h4 class="text-white">Built by developers</h4>
-            <h1 class="text-white">Complex Documentation</h1>
+            <h4 class="text-white">Built for Event Enthusiasts</h4>
+            <h1 class="text-white">Revolutionize Your Venue</h1>
             <p class="lead text-white opacity-8">
-              From colors, cards, typography to complex elements, you will find
-              the full documentation. Play with the utility classes and you will
-              create unlimited combinations for our components.
+              From ticketing, event management, to venue promotion, this system
+              makes it easy to create unforgettable experiences. Explore the tools
+              to make your events accessible and your parties legendary.
             </p>
             <a
-              href="https://www.creative-tim.com/learning-lab/vue/overview/material-kit/"
+              href="https://ticklive.vercel.app"
               class="text-white icon-move-right"
             >
               Read docs

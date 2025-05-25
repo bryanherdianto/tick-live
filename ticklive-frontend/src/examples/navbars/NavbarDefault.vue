@@ -18,7 +18,7 @@ const props = defineProps({
     color: String,
     label: String,
     default: () => ({
-      route: "https://www.creative-tim.com/product/vue-material-kit",
+      route: "https://ticklive.vercel.app",
       color: "bg-gradient-success",
       label: "Login"
     })
@@ -201,76 +201,72 @@ function openEvents() {
                 <ul class="list-group">
                   <li class="nav-item list-group-item border-0 p-0">
                     <a class="dropdown-item py-2 ps-3 border-radius-md"
-                      href=" https://www.creative-tim.com/learning-lab/vue/overview/material-kit/">
+                      href="https://ticklive.vercel.app">
+                      <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        Getting Started
+                        </h6>
+                        <span class="text-sm">Learn how to kickstart your event ticketing journey</span>
+                      </a>
+                      </li>
+                      <li class="nav-item list-group-item border-0 p-0">
+                      <a class="dropdown-item py-2 ps-3 border-radius-md"
+                        href="https://ticklive.vercel.app">
+                        <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        Foundation
+                        </h6>
+                        <span class="text-sm">Discover the essentials for creating vibrant venues</span>
+                      </a>
+                      </li>
+                      <li class="nav-item list-group-item border-0 p-0">
+                      <a class="dropdown-item py-2 ps-3 border-radius-md"
+                        href="https://ticklive.vercel.app">
+                        <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        Components
+                        </h6>
+                        <span class="text-sm">Explore tools to make your events unforgettable</span>
+                      </a>
+                      </li>
+                    </ul>
+                    </div>
+                    <div class="row d-lg-none">
+                    <div class="col-md-12 g-0">
+                      <a class="dropdown-item py-2 ps-3 border-radius-md" href="https://ticklive.vercel.app">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         Getting Started
                       </h6>
-                      <span class="text-sm">All about overview, quick start, license and
-                        contents</span>
-                    </a>
-                  </li>
-                  <li class="nav-item list-group-item border-0 p-0">
-                    <a class="dropdown-item py-2 ps-3 border-radius-md"
-                      href=" https://www.creative-tim.com/learning-lab/vue/colors/material-kit/">
+                      <span class="text-sm">Learn how to kickstart your event ticketing journey</span>
+                      </a>
+                      <a class="dropdown-item py-2 ps-3 border-radius-md" href="https://ticklive.vercel.app">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         Foundation
                       </h6>
-                      <span class="text-sm">See our colors, icons and typography</span>
-                    </a>
-                  </li>
-                  <li class="nav-item list-group-item border-0 p-0">
-                    <a class="dropdown-item py-2 ps-3 border-radius-md"
-                      href=" https://www.creative-tim.com/learning-lab/vue/alerts/material-kit/">
+                      <span class="text-sm">Discover the essentials for creating vibrant venues</span>
+                      </a>
+                      <a class="dropdown-item py-2 ps-3 border-radius-md" href="https://ticklive.vercel.app">
                       <h6
                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                         Components
                       </h6>
-                      <span class="text-sm">Explore our collection of fully designed
-                        components</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="row d-lg-none">
-                <div class="col-md-12 g-0">
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
-                    <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                      Getting Started
-                    </h6>
-                    <span class="text-sm">All about overview, quick start, license and
-                      contents</span>
-                  </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
-                    <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                      Foundation
-                    </h6>
-                    <span class="text-sm">See our colors, icons and typography</span>
-                  </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
-                    <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                      Components
-                    </h6>
-                    <span class="text-sm">Explore our collection of fully designed components</span>
-                  </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
-                    <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                      Plugins
-                    </h6>
-                    <span class="text-sm">Check how you can integrate our plugins</span>
-                  </a>
-                  <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
-                    <h6
-                      class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                      Utility Classes
-                    </h6>
-                    <span class="text-sm">For those who want flexibility, use our utility
-                      classes</span>
+                      <span class="text-sm">Explore tools to make your events unforgettable</span>
+                      </a>
+                      <a class="dropdown-item py-2 ps-3 border-radius-md" href="https://ticklive.vercel.app">
+                      <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        Plugins
+                      </h6>
+                      <span class="text-sm">Integrate plugins to enhance your ticketing system</span>
+                      </a>
+                      <a class="dropdown-item py-2 ps-3 border-radius-md" href="https://ticklive.vercel.app">
+                      <h6
+                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                        Utility Classes
+                      </h6>
+                      <span class="text-sm">Leverage utility classes for flexible event designs</span>
                   </a>
                 </div>
               </div>

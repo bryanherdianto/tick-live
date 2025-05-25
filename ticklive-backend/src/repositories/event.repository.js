@@ -113,11 +113,9 @@ exports.getEventByIdWithDetails = async (id) => {
                 l.name AS location_name,
                 l.address AS location_address,
                 l.image AS location_image,
-                l.description AS location_description,
-                u.username AS host_name
+                l.description AS location_description
             FROM events e
             JOIN locations l ON e.location_id = l.id
-            JOIN users u ON e.id_host = u.id
             WHERE e.id = $1
         `, [id]);
         return res.rows[0];

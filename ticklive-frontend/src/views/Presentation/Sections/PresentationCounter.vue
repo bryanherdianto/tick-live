@@ -11,9 +11,8 @@ import DefaultCounterCard from "../../../examples/cards/counterCards/DefaultCoun
             <div class="col-md-4 position-relative">
               <DefaultCounterCard
                 color="success"
-                title="Coded Elements"
-                description="From buttons, to inputs, navbars, alerts or cards, you are
-                  covered"
+                title="Events Hosted"
+                description="Easily manage and promote events to attract a larger audience and make your venue the talk of the town."
                 :count="70"
                 suffix="+"
                 :duration="3000"
@@ -23,11 +22,10 @@ import DefaultCounterCard from "../../../examples/cards/counterCards/DefaultCoun
             <div class="col-md-4 position-relative">
               <DefaultCounterCard
                 color="success"
-                title="Design Blocks"
-                description="Mix the sections, change the colors and unleash your
-                  creativity"
+                title="Tickets Sold"
+                description="Streamline ticket sales and ensure a seamless experience for your attendees."
                 :count="15"
-                suffix="+"
+                suffix="k+"
                 :duration="3000"
                 divider="vertical"
               />
@@ -35,9 +33,8 @@ import DefaultCounterCard from "../../../examples/cards/counterCards/DefaultCoun
             <div class="col-md-4">
               <DefaultCounterCard
                 color="success"
-                title="Pages"
-                description="Save 3-4 weeks of work when you use our pre-made pages for
-                  your website"
+                title="Venues Popularized"
+                description="Boost your venue's visibility and make every party unforgettable with our accessible platform."
                 :count="4"
                 :duration="3000"
               />

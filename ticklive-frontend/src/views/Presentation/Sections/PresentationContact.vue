@@ -7,6 +7,17 @@ import MaterialTextArea from "@/components/MaterialTextArea.vue";
 
 // image
 import bgContact from "@/assets/img/examples/blog2.jpg";
+
+// tooltip
+import setTooltip from "@/assets/js/tooltip";
+
+// store
+import { useAppStore } from "@/stores";
+const store = useAppStore();
+
+onMounted(() => {
+  setTooltip(store.bootstrap);
+});
 </script>
 <template>
   <section class="py-lg-5">
@@ -37,7 +48,7 @@ import bgContact from "@/assets/img/examples/blog2.jpg";
                         <i class="fas fa-phone text-sm"></i>
                       </div>
                       <div class="ps-3">
-                        <span class="text-sm opacity-8">(+40) 772 100 200</span>
+                        <span class="text-sm opacity-8">(+62) 855 8866 900</span>
                       </div>
                     </div>
                     <div class="d-flex p-2 text-white">
@@ -46,7 +57,7 @@ import bgContact from "@/assets/img/examples/blog2.jpg";
                       </div>
                       <div class="ps-3">
                         <span class="text-sm opacity-8"
-                          >hello@creative-tim.com</span
+                          >ticklive@gmail.com</span
                         >
                       </div>
                     </div>
@@ -56,7 +67,7 @@ import bgContact from "@/assets/img/examples/blog2.jpg";
                       </div>
                       <div class="ps-3">
                         <span class="text-sm opacity-8"
-                          >Dyonisie Wolf Bucharest, RO 010458</span
+                          >Pekalongan Jabar, RO 010458</span
                         >
                       </div>
                     </div>

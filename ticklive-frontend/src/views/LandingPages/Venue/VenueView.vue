@@ -58,8 +58,8 @@ onUnmounted(() => {
               <h1>tool</h1>
             </div>
             <p class="lead mb-4 text-white opacity-8">
-              We’re constantly trying to express ourselves and actualize our
-              dreams. If you have the opportunity to play this game
+                Discover and book tickets for the most exciting events around you.
+                If you have the opportunity to attend, don't miss out on the experience.
             </p>
             <SignedOut>
               <button type="submit" class="btn bg-white text-dark">

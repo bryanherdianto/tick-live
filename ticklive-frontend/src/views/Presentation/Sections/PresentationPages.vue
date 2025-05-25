@@ -29,16 +29,16 @@ import imgSigninCover from "@/assets/img/signin-cover.png";
             <div class="col-md-6 mt-md-0 mt-5">
               <ExampleCard
                 class="shadow-lg"
-                title="About Us Page"
-                image="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/pages/about-us.jpg"
+                title="About Us"
+                image="https://picsum.photos/1000/1500"
                 route="presentation"
               />
             </div>
             <div class="col-md-6 mt-md-0 mt-5">
               <ExampleCard
                 class="shadow-lg"
-                title="Contact Us Page"
-                image="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/pages/contact.jpg"
+                title="Venues"
+                image="https://picsum.photos/1000/1500"
                 route="presentation"
               />
             </div>
@@ -48,15 +48,15 @@ import imgSigninCover from "@/assets/img/signin-cover.png";
               <ExampleCard
                 classes="mt-5"
                 title="Sign In Page"
-                :image="imgSigninCover"
+                image="https://picsum.photos/1000/1500"
                 route="presentation"
               />
             </div>
             <div class="col-md-6 mt-md-0 mt-5">
               <ExampleCard
                 classes="shadow-lg"
-                title="Author Page"
-                image="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/pages/author.jpg"
+                title="Events"
+                image="https://picsum.photos/1000/1500"
                 route="presentation"
               />
             </div>

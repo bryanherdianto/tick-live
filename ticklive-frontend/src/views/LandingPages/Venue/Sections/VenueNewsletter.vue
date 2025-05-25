@@ -15,11 +15,10 @@ onMounted(() => {
     <div class="container">
       <div class="row">
         <div class="col-md-6 m-auto">
-          <h4>Be the first to see the news</h4>
-          <p class="mb-4">
-            Your company may not be in the software business, but eventually, a
-            software company will be in your business.
-          </p>
+            <h4>Stay Updated on Upcoming Events</h4>
+            <p class="mb-4">
+            Never miss out on the latest events and ticketing updates. Subscribe now to stay in the loop!
+            </p>
           <div class="row">
             <div class="col-8">
               <MaterialInput

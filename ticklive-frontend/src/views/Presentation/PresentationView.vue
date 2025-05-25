@@ -64,32 +64,32 @@ onUnmounted(() => {
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
-          <FilledInfoCard class="p-4" :color="{ text: 'white', background: 'bg-gradient-success' }"
-            :icon="{ component: 'flag', color: 'white' }" title="Getting Started"
-            description="Check the possible ways of working with our product and the necessary files for building your own project."
+            <FilledInfoCard class="p-4" :color="{ text: 'white', background: 'bg-gradient-success' }"
+            :icon="{ component: 'celebration', color: 'white' }" title="Plan Your Event"
+            description="Explore the best tools and resources to plan your perfect event, from venues to decorations."
             :action="{
               route:
-                'https://www.creative-tim.com/learning-lab/vue/overview/material-kit/',
-              label: { text: 'Let\'s start', color: 'white' }
+              'https://ticklive.vercel.app',
+              label: { text: 'Start Planning', color: 'white' }
             }" />
-        </div>
-        <div class="col-lg-4">
-          <FilledInfoCard class="px-lg-1 mt-lg-0 mt-4 p-4" height="h-100"
-            :icon="{ component: 'precision_manufacturing', color: 'success' }" title="Plugins" description="Get inspiration and have an overview about the plugins that we
-                used to create the Material Kit." :action="{
-                  route:
-                    'https://www.creative-tim.com/learning-lab/vue/input/material-kit/',
-                  label: { text: 'Read more' }
-                }" />
-        </div>
-        <div class="col-lg-4">
-          <FilledInfoCard class="px-lg-1 mt-lg-0 mt-4 p-4" :icon="{ component: 'receipt_long', color: 'success' }"
-            title="Utility Classes" description="Material Kit is giving you a lot of pre-made elements. For those
-                who want flexibility, we included many utility classes." :action="{
-                  route:
-                    'https://www.creative-tim.com/learning-lab/vue/utilities/material-kit/',
-                  label: { text: 'Read more' }
-                }" />
+          </div>
+          <div class="col-lg-4">
+            <FilledInfoCard class="px-lg-1 mt-lg-0 mt-4 p-4" height="h-100"
+            :icon="{ component: 'event', color: 'success' }" title="Venue Selection" description="Discover top-rated venues for your events and make your celebrations unforgettable." 
+            :action="{
+              route:
+              'https://ticklive.vercel.app',
+              label: { text: 'Explore Venues' }
+            }" />
+          </div>
+          <div class="col-lg-4">
+            <FilledInfoCard class="px-lg-1 mt-lg-0 mt-4 p-4" :icon="{ component: 'local_bar', color: 'success' }"
+            title="Party Essentials" description="Find everything you need to host the ultimate party, from catering to entertainment." 
+            :action="{
+              route:
+              'https://ticklive.vercel.app',
+              label: { text: 'Learn More' }
+            }" />
         </div>
       </div>
     </div>

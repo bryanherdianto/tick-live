@@ -13,108 +13,93 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-const imagesPrefix =
-  "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections";
-
-import imgPricing from "@/assets/img/pricing.png";
-import imgFeatures from "@/assets/img/features.png";
-import imgBlogPosts from "@/assets/img/blog-posts.png";
-import imgTestimonials from "@/assets/img/testimonials.png";
-import imgTeam from "@/assets/img/team.png";
-import imgStat from "@/assets/img/stat.png";
-import imgContent from "@/assets/img/content.png";
-import imgPagination from "@/assets/img/pagination.png";
-import imgAlert from "@/assets/img/alerts.jpg";
-import imgPopover from "@/assets/img/popovers.jpg";
-import imgModal from "@/assets/img/modals.jpg";
-
 export default [
   {
-    heading: "Design Blocks",
+    heading: "Event Highlights",
     description:
-      "A selection of 45 page sections that fit perfectly in any combination",
+      "A selection of 45 sections to showcase your venue and events in style",
     items: [
       {
-        image: `${imagesPrefix}/headers.jpg`,
-        title: "Page Headers",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Banners",
         route: "presentation",
         price: 149
       },
       {
-        image: imgFeatures,
-        title: "Features",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Features",
         route: "presentation",
         price: 199
       },
       {
-        image: imgPricing,
-        title: "Pricing",
+        image: "https://picsum.photos/1000/1500",
+        title: "Ticket Pricing",
         route: "presentation",
         price: 249
       },
       {
-        image: `${imagesPrefix}/faq.jpg`,
-        title: "FAQ",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event FAQs",
         route: "presentation",
         price: 129
       },
       {
-        image: imgBlogPosts,
-        title: "Blog Posts",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Blogs",
         route: "presentation",
         price: 179
       },
       {
-        image: imgTestimonials,
-        title: "Testimonials",
+        image: "https://picsum.photos/1000/1500",
+        title: "Guest Testimonials",
         route: "presentation",
         price: 159
       },
       {
-        image: imgTeam,
-        title: "Teams",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Organizers",
         route: "presentation",
         price: 199
       },
       {
-        image: imgStat,
-        title: "Stats",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Stats",
         route: "presentation",
         price: 149
       },
       {
-        image: `${imagesPrefix}/call-to-action.jpg`,
-        title: "Call to Actions",
+        image: "https://picsum.photos/1000/1500",
+        title: "Call to Action Sections",
         route: "presentation",
         price: 169
       },
       {
-        image: `${imagesPrefix}/projects.jpg`,
-        title: "Applications",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Applications",
         route: "presentation",
         price: 299
       },
       {
-        image: `${imagesPrefix}/logo-area.jpg`,
-        title: "Logo Areas",
+        image: "https://picsum.photos/1000/1500",
+        title: "Sponsor Logos",
         route: "presentation",
         price: 119
       },
       {
-        image: `${imagesPrefix}/footers.jpg`,
-        title: "Footers",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Footers",
         route: "presentation",
         price: 139
       },
       {
-        image: `${imagesPrefix}/general-cards.jpg`,
-        title: "General Cards",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Cards",
         route: "presentation",
         price: 189
       },
       {
-        image: imgContent,
-        title: "Content Sections",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Content Sections",
         route: "presentation",
         price: 159
       }
@@ -122,85 +107,85 @@ export default [
   },
   {
     heading: "Navigation",
-    description: "30+ components that will help go through the pages",
+    description: "30+ components to help attendees explore your event",
     items: [
       {
-        image: `${imagesPrefix}/navbars.jpg`,
-        title: "Navbars",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Navbars",
         route: "presentation",
         price: 129
       },
       {
-        image: `${imagesPrefix}/nav-tabs.jpg`,
-        title: "Nav Tabs",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Tabs",
         route: "presentation",
         price: 99
       },
       {
-        image: imgPagination,
-        title: "Pagination",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Pagination",
         route: "presentation",
         price: 79
       }
     ]
   },
   {
-    heading: "Input Areas",
+    heading: "Ticketing & Forms",
     description:
-      "50+ elements that you need for text manipulation and insertion",
+      "50+ elements to simplify ticket booking and attendee registration",
     items: [
       {
-        image: `${imagesPrefix}/newsletters.jpg`,
-        title: "Newsletters",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Newsletters",
         route: "presentation",
         price: 149
       },
       {
-        image: `${imagesPrefix}/contact-sections.jpg`,
-        title: "Contact Sections",
+        image: "https://picsum.photos/1000/1500",
+        title: "Contact Organizers",
         route: "presentation",
         price: 179
       },
       {
-        image: `${imagesPrefix}/forms.jpg`,
-        title: "Forms",
+        image: "https://picsum.photos/1000/1500",
+        title: "Registration Forms",
         route: "presentation",
         price: 119
       },
       {
-        image: `${imagesPrefix}/inputs.jpg`,
-        title: "Inputs",
+        image: "https://picsum.photos/1000/1500",
+        title: "Input Fields",
         route: "presentation",
         price: 99
       }
     ]
   },
   {
-    heading: "Attention Catchers",
+    heading: "Engagement Tools",
     description:
-      "20+ Fully coded components that popup from different places of the screen",
+      "20+ components to keep your attendees engaged and excited",
     items: [
       {
-        image: imgAlert,
-        title: "Alerts",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Alerts",
         route: "presentation",
         price: 89
       },
       {
-        image: `${imagesPrefix}/toasts.jpg`,
-        title: "Notifications",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Notifications",
         route: "presentation",
         price: 119
       },
       {
-        image: imgPopover,
+        image: "https://picsum.photos/1000/1500",
         title: "Tooltips & Popovers",
         route: "presentation",
         price: 79
       },
       {
-        image: imgModal,
-        title: "Modals",
+        image: "https://picsum.photos/1000/1500",
+        title: "Event Modals",
         route: "presentation",
         price: 99
       }

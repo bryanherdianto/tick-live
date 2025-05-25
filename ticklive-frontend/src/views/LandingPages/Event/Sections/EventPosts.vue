@@ -14,36 +14,36 @@ import post4 from "@/assets/img/examples/blog2.jpg";
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
-          <h3 class="mb-5">Check our latest blogs</h3>
+          <h3 class="mb-5">Discover the Hottest Events</h3>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-3 col-sm-6">
           <TransparentBlogCard
             :image="post1"
-            title="Rover raised $65 million"
-            description="Finding temporary housing for your dog should be as easy as renting an Airbnb. That’s the idea behind Rover ..."
+            title="Rover's Grand Opening Party"
+            description="Experience the ultimate launch event with live music, great food, and an unforgettable atmosphere. Don't miss out!"
           />
         </div>
         <div class="col-lg-3 col-sm-6">
           <TransparentBlogCard
             :image="post2"
-            title="MateLabs machine learning"
-            description="If you’ve ever wanted to train a machine learning model and integrate it with IFTTT, you now can with ..."
+            title="AI-Powered Ticketing Revolution"
+            description="Learn how our app makes ticketing seamless and accessible, helping venues fill seats like never before."
           />
         </div>
         <div class="col-lg-3 col-sm-6">
           <TransparentBlogCard
             :image="post3"
-            title="MateLabs machine learning"
-            description="If you’ve ever wanted to train a machine learning model and integrate it with IFTTT, you now can with ..."
+            title="Unleashing the Party Scene"
+            description="Discover how our platform connects you to the craziest parties and events in your city with just a few clicks."
           />
         </div>
         <div class="col-lg-3 col-md-12 col-12">
           <BackgroundBlogCard
             :image="post4"
-            title="Flexible work hours"
-            description="Rather than worrying about switching offices every couple years, you stay in the same place."
+            title="Venue Spotlight: Flexible Spaces"
+            description="Explore how venues are leveraging our app to offer flexible booking options and attract more attendees."
           />
         </div>
       </div>

@@ -12,23 +12,15 @@ import DefaultInfoCard from "../../../examples/cards/infoCards/DefaultInfoCard.v
           <RotatingCard>
             <RotatingCardFront
               image="https://images.unsplash.com/photo-1569683795645-b62e50fbf103?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-              icon="touch_app"
-              title="Feel the <br /> Material Kit"
-              description="All the Bootstrap components that you need in a development have been
-        re-design with the new look."
+              icon="event"
+              title="Host Amazing <br /> Events"
+              description="Easily manage and promote your events with our intuitive platform, designed to make every event unforgettable."
             />
 
             <RotatingCardBack
-              image="https://images.unsplash.com/photo-1498889444388-e67ea62c464b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1365&q=80"
-              title="Discover More"
-              description="You will save a lot of time going from prototyping to full-functional
-                code because all elements are implemented."
-              :action="[
-                {
-                  route: './/sections/page-sections/hero-sections.html',
-                  label: 'Start with Headers',
-                },
-              ]"
+              image="https://images.unsplash.com/photo-1498889444388-e67ea62c464b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1365&q=80"
+              title="Boost Your Venue"
+              description="Attract more attendees and make your venue the talk of the town with our seamless ticketing system."
             />
           </RotatingCard>
         </div>
@@ -36,31 +28,27 @@ import DefaultInfoCard from "../../../examples/cards/infoCards/DefaultInfoCard.v
           <div class="row justify-content-start">
             <DefaultInfoCard
               icon="content_copy"
-              title="Full Documentation"
-              description="Built by developers for developers. Check the foundation and
-                  you will find everything inside our documentation."
+              title="Comprehensive Documentation"
+              description="Learn how to maximize your event's potential with our detailed guides and resources. Visit ticklive.vercel.app for more."
             />
             <DefaultInfoCard
               icon="flip_to_front"
-              title="Bootstrap 5 Ready"
-              description="The world’s most popular front-end open source toolkit,
-                  featuring Sass variables and mixins."
+              title="Effortless Ticketing"
+              description="Our platform integrates seamlessly with your workflow, making ticket sales and management a breeze."
             />
           </div>
           <div class="row justify-content-start mt-5">
             <DefaultInfoCard
               class="mt-3"
               icon="price_change"
-              title="Save Time & Money"
-              description="Creating your design from scratch with dedicated designers can
-                be very expensive. Start with our Design System."
+              title="Maximize Revenue"
+              description="Sell tickets faster and reach a wider audience, saving time and increasing your profits."
             />
             <DefaultInfoCard
               class="mt-3"
               icon="devices"
-              title="Fully Responsive"
-              description="Regardless of the screen size, the website content will
-                  naturally fit the given resolution."
+              title="Accessible Anywhere"
+              description="Our fully responsive platform ensures your events are accessible on any device, anytime, anywhere."
             />
           </div>
         </div>

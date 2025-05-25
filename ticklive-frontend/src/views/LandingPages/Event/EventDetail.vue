@@ -1,15 +1,27 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router';
 import NavbarDefault from "../../../examples/navbars/NavbarDefault.vue";
 import DefaultFooter from "../../../examples/footers/FooterDefault.vue";
 import { fetchEventById } from '@/services/eventApi';
 
+const route = useRoute();
 const event = ref(null);
 const error = ref(null);
 
 async function loadEvent() {
     try {
-        event.value = await fetchEventById('969da9a1-f36d-4116-a405-ae6fc9d416ba');
+        // Get the event ID from the route parameters
+        const eventId = route.params.id;
+        
+        if (!eventId) {
+            error.value = 'Event ID not found in URL';
+            console.error('Event ID not found in URL');
+            return;
+        }
+        
+        event.value = await fetchEventById(eventId);
+        console.log('Event loaded:', event.value);
     } catch (err) {
         error.value = 'Failed to fetch event';
         console.error(err);
@@ -20,34 +32,12 @@ onMounted(async () => {
     await loadEvent();
 });
 
-const room = {
-    name: 'Urbanza Suites',
-    rating: 4.5,
-    reviews: 200,
-    location: 'Main Road 123 Street, 23 Colony',
-    price: 399, images: [
-        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/headers.jpg",
-        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/features.jpg",
-        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/pricing.jpg",
-        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/testimonials.jpg",
-        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/material-design-system/presentation/sections/content.jpg"
-    ],
-    features: [
-        { icon: 'fa fa-concierge-bell', label: 'Room Service' },
-        { icon: 'fa fa-mountain', label: 'Mountain View' },
-        { icon: 'fa fa-swimmer', label: 'Pool Access' }
-    ],
-    highlights: [
-        { icon: 'fa fa-home', title: 'Clean & Safe Stay', description: 'A well-maintained and hygienic space just for you.' },
-        { icon: 'fa fa-soap', title: 'Enhanced Cleaning', description: 'Follows Staybnb\'s strict cleaning standards.' },
-        { icon: 'fa fa-map-marker', title: 'Excellent Location', description: '90% rated the location 5 stars.' },
-        { icon: 'fa fa-bell', title: 'Smooth Check-In', description: '100% rated check-in as 5-star.' }
-    ],
-    description: `Guests will be allocated on the ground floor according to availability...`,
-    host: {
-        name: 'Ryan Gosling',
-    }
-}
+const highlights = [
+    { icon: 'fa fa-home', title: 'Clean & Safe Stay', description: 'A well-maintained and hygienic space just for you.' },
+    { icon: 'fa fa-soap', title: 'Enhanced Cleaning', description: 'Follows Staybnb\'s strict cleaning standards.' },
+    { icon: 'fa fa-map-marker', title: 'Excellent Location', description: '90% rated the location 5 stars.' },
+    { icon: 'fa fa-bell', title: 'Smooth Check-In', description: '100% rated check-in as 5-star.' }
+]
 
 const checkIn = ref('')
 const checkOut = ref('')
@@ -63,42 +53,25 @@ const checkOut = ref('')
     </div>
     <div class="container mt-7 py-5">
         <!-- Title and Info -->
-        <div class="row">
-            <div class="col-lg-8">
-                <h1 v-if="event" class="mb-1">{{ event.payload.name }}</h1>
-                <div class="d-flex align-items-center mb-2">
-                    <span class="text-warning me-1"><i class="fa fa-star"></i> {{ room.rating }}</span>
-                    <span class="text-muted small">{{ room.reviews }}+ reviews</span>
-                </div>
-                <p class="text-muted mb-3"><i class="fa fa-map-marker"></i> {{ room.location }}</p>
-            </div>
-            <div class="col-lg-4 text-end">
-                <h4 class="fw-bold">${{ room.price }} <small class="text-muted">/night</small></h4>
+        <div class="row">            <div class="col-lg-8">
+                <h1 v-if="event && event.payload" class="mb-1">{{ event.payload.name }}</h1>
+                <p class="text-muted mb-3" v-if="event && event.payload"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ event.payload.location_address || event.payload.location || 'Location not specified' }}</p>
             </div>
         </div> <!-- Images -->
-        <div class="row mt-4">
+        <div class="row mt-4" v-if="event && event.payload">
             <div class="col-lg-8 mb-4">
-                <img :src="room.images[0]" class="w-100 rounded-3 shadow" style="height: 400px; object-fit: cover;" />
+                <img :src="event.payload.location_image" class="w-100 rounded-3 shadow" style="height: 400px; object-fit: cover;" />
             </div>
             <div class="col-lg-4">
                 <div class="row">
-                    <div class="col-6 col-lg-12 mb-3" v-for="(img, i) in room.images.slice(1, 3)" :key="i">
-                        <img :src="img" class="w-100 rounded-3 shadow" style="height: 190px; object-fit: cover;" />
+                    <div class="col-6 col-lg-12 mb-3" v-for="i in 2" :key="i">
+                        <img :src="event.payload.location_image" class="w-100 rounded-3 shadow" style="height: 190px; object-fit: cover;" />
                     </div>
                 </div>
-            </div>
-        </div> <!-- Features -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="d-flex flex-wrap">
-                    <span v-for="feature in room.features" :key="feature.label"
-                        class="badge bg-light text-dark p-2 me-2 mb-2">
-                        <i :class="feature.icon"></i>&nbsp;&nbsp;{{ feature.label }}
-                    </span>
-                </div>
-            </div>
-        </div> <!-- Check-in Form -->
-        <div class="row mt-5">
+            </div>        </div>
+
+        <!-- Check-in Form -->
+        <div class="row mt-5" v-if="event && event.payload">
             <div class="col-12">
                 <div class="card shadow-lg">
                     <div class="card-body p-4">
@@ -122,13 +95,12 @@ const checkOut = ref('')
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> <!-- Highlights -->
+            </div>        </div> <!-- Highlights -->
         <div class="row mt-5">
             <div class="col-12">
                 <h4 class="mb-4">Highlights</h4>
             </div>
-            <div class="col-lg-6" v-for="h in room.highlights" :key="h.title">
+            <div class="col-lg-6" v-for="h in highlights" :key="h.title">
                 <div class="card card-plain mb-4">
                     <div class="card-body p-3">
                         <div class="d-flex">
@@ -142,8 +114,7 @@ const checkOut = ref('')
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> <!-- Description -->
+            </div>        </div> <!-- Description -->
         <div class="row mt-5">
             <div class="col-12">
                 <div class="card">
@@ -151,14 +122,12 @@ const checkOut = ref('')
                         <h5 class="mb-0">About this event</h5>
                     </div>
                     <div class="card-body p-3">
-                        <p class="text-muted">{{ room.description }}</p>
+                        <p class="text-muted" v-if="event && event.payload">{{ event.payload.description || 'No description available' }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Host Info -->
-        <div class="row mt-5">
+        </div>        <!-- Host Info -->
+        <div class="row mt-5" v-if="event && event.payload">
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
@@ -170,7 +139,7 @@ const checkOut = ref('')
                                             class="avatar-image rounded-circle" alt="Host avatar">
                                     </div>
                                     <div>
-                                        <h5 class="mb-1">Hosted by {{ room.host.name }}</h5>
+                                        <h5 class="mb-1">Hosted by {{ event.payload.organizer_name || 'Event Host' }}</h5>
                                     </div>
                                 </div>
                             </div>
