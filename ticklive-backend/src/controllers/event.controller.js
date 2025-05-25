@@ -109,3 +109,27 @@ exports.getEventByName = async (req, res) => {
         baseResponse(res, false, 500, 'Internal server error');
     }
 }
+
+exports.getAllEventsWithLocation = async (req, res) => {
+    try {
+        const events = await eventRepository.getAllEventsWithLocation();
+        baseResponse(res, true, 200, 'Events with locations fetched successfully', events);
+    } catch (error) {
+        console.error('Error fetching events with locations:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+exports.getEventByIdWithDetails = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const event = await eventRepository.getEventByIdWithDetails(id);
+        if (!event) {
+            return baseResponse(res, false, 404, 'Event not found');
+        }
+        baseResponse(res, true, 200, 'Event details fetched successfully', event);
+    } catch (error) {
+        console.error('Error fetching event by ID with details:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}

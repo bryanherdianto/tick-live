@@ -85,3 +85,44 @@ exports.getEventByName = async (name) => {
         throw error;
     }
 }
+
+exports.getAllEventsWithLocation = async () => {
+    try {
+        const res = await db.query(`
+            SELECT 
+                e.*,
+                l.name AS location_name,
+                l.address AS location_address,
+                l.image AS location_image
+            FROM events e
+            JOIN locations l ON e.location_id = l.id
+            ORDER BY e.date
+        `);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching events with location:', error);
+        throw error;
+    }
+}
+
+exports.getEventByIdWithDetails = async (id) => {
+    try {
+        const res = await db.query(`
+            SELECT 
+                e.*,
+                l.name AS location_name,
+                l.address AS location_address,
+                l.image AS location_image,
+                l.description AS location_description,
+                u.username AS host_name
+            FROM events e
+            JOIN locations l ON e.location_id = l.id
+            JOIN users u ON e.id_host = u.id
+            WHERE e.id = $1
+        `, [id]);
+        return res.rows[0];
+    } catch (error) {
+        console.error('Error fetching event details by ID:', error);
+        throw error;
+    }
+}
