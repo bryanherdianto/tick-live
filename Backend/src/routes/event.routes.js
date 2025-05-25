@@ -7,7 +7,7 @@ router.get('/:id', eventController.getEventById);
 router.post('/create', eventController.createEvent);
 router.put('/update/:id', eventController.updateEvent);
 router.delete('/delete/:id', eventController.deleteEvent);
-router.get('/:date', eventController.getEventsByDate);
-router.get('/:name', eventController.getEventsByName);
+router.get('/:date', eventController.getEventByDate);
+router.get('/:name', eventController.getEventByName);
 
 module.exports = router;
