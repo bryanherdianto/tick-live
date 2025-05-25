@@ -37,32 +37,27 @@ git clone https://github.com/bryanherdianto/TickLIVE.git
 ### Backend
 - Ganti ke direktori Backend
 ```
-cd Backend
+cd ticklive-backend
 ```
 - Lakukan instalasi dependency
 ```
 npm install
 ```
-
 - Run Backend
 ```
 npm run start
-
 ```
-
 
 ### Frontend
 - Ganti ke direktori frontend
 ```
-cd frontend
+cd ticklive-frontend
 ```
 - Install Dependencies
 ```
 npm install
 ```
-
 - Run Frontend
 ```
 npm run dev
-
 ```
