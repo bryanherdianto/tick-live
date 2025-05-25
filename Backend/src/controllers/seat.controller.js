@@ -122,3 +122,45 @@ exports.getAvailableSeatsByEventIdAndHierarchy = async (req, res) => {
         baseResponse(res, false, 500, 'Internal server error');
     }
 }
+
+exports.getAvailableSeatsByEventIdAndPosition = async (req, res) => {
+    const { eventId, position } = req.params;
+    try {
+        const seats = await seatRepository.getAvailableSeatsByEventIdAndPosition(eventId, position);
+        if (!seats || seats.length === 0) {
+            return baseResponse(res, false, 404, 'No seats found for this event and position');
+        }
+        baseResponse(res, true, 200, 'Seats fetched successfully', seats);
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and position:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndPrice = async (req, res) => {
+    const { eventId, price } = req.params;
+    try {
+        const seats = await seatRepository.getAvailableSeatsByEventIdAndPrice(eventId, price);
+        if (!seats || seats.length === 0) {
+            return baseResponse(res, false, 404, 'No seats found for this event and price');
+        }
+        baseResponse(res, true, 200, 'Seats fetched successfully', seats);
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and price:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndPriceRange = async (req, res) => {
+    const { eventId, minPrice, maxPrice } = req.params;
+    try {
+        const seats = await seatRepository.getAvailableSeatsByEventIdAndPriceRange(eventId, minPrice, maxPrice);
+        if (!seats || seats.length === 0) {
+            return baseResponse(res, false, 404, 'No seats found for this event and price range');
+        }
+        baseResponse(res, true, 200, 'Seats fetched successfully', seats);
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and price range:', error);
+        baseResponse(res, false, 500, 'Internal server error');
+    }
+}

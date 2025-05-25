@@ -100,3 +100,33 @@ exports.getAvailableSeatsByEventIdAndHierarchy = async (eventId, hierarchy) => {
         throw error;
     }
 }
+
+exports.getAvailableSeatsByEventIdAndPosition = async (eventId, position) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price, status FROM seats WHERE event_id = $1 AND position = $2 AND status = "Available"', [eventId, position]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and position:', error);
+        throw error;
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndPrice = async (eventId, price) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price, status FROM seats WHERE event_id = $1 AND price = $2 AND status = "Available"', [eventId, price]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and price:', error);
+        throw error;
+    }
+}
+
+exports.getAvailableSeatsByEventIdAndPriceRange = async (eventId, minPrice, maxPrice) => {
+    try {
+        const res = await db.query('SELECT position, hierarchy, price, status FROM seats WHERE event_id = $1 AND price BETWEEN $2 AND $3 AND status = "Available"', [eventId, minPrice, maxPrice]);
+        return res.rows;
+    } catch (error) {
+        console.error('Error fetching available seats by event ID and price range:', error);
+        throw error;
+    }
+}
