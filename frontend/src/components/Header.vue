@@ -24,7 +24,7 @@ import { RouterLink } from "vue-router";
 					>Events</RouterLink
 				>
 				<a
-					href="#"
+					href="/venue"
 					class="border-2 border-transparent hover:bg-[#fc0] hover:border-[#1a1a1a] px-4 py-1.5 font-bold text-base uppercase font-['Space_Grotesk'] transition-colors"
 					>Venues</a
 				>
