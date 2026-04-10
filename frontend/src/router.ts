@@ -5,38 +5,22 @@ import CheckoutPage from "./components/CheckoutPage.vue";
 import VenuePage from "./components/VenuePage.vue";
 import SeatSelectionPage from "./components/SeatSelectionPage.vue";
 import EventDetailsPage from "./components/EventDetailsPage.vue";
+import VenueDetailsPage from "./components/VenueDetailsPage.vue";
+import TicketsPage from "./components/TicketsPage.vue";
 
 const routes = [
+	{ path: "/", name: "home", component: HomePage },
+	{ path: "/events", name: "events", component: EventPage },
+	{ path: "/event/:id", name: "event-details", component: EventDetailsPage },
+	{ path: "/venues", name: "venues", component: VenuePage },
+	{ path: "/venue/:id", name: "venue-details", component: VenueDetailsPage },
 	{
-		path: "/",
-		name: "home",
-		component: HomePage,
-	},
-	{
-		path: "/event",
-		name: "event",
-		component: EventPage,
-	},
-	{
-		path: "/checkout",
-		name: "checkout",
-		component: CheckoutPage,
-	},
-	{
-		path: "/venue",
-		name: "venue",
-		component: VenuePage,
-	},
-	{
-		path: "/seat-selection",
+		path: "/seat-selection/:eventId",
 		name: "seat-selection",
 		component: SeatSelectionPage,
 	},
-	{
-		path: "/event-details",
-		name: "event-details",
-		component: EventDetailsPage,
-	},
+	{ path: "/checkout", name: "checkout", component: CheckoutPage },
+	{ path: "/tickets", name: "my-tickets", component: TicketsPage },
 ];
 
 const router = createRouter({
