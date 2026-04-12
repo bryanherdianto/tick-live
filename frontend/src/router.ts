@@ -7,6 +7,8 @@ import SeatSelectionPage from "./components/SeatSelectionPage.vue";
 import EventDetailsPage from "./components/EventDetailsPage.vue";
 import VenueDetailsPage from "./components/VenueDetailsPage.vue";
 import TicketsPage from "./components/TicketsPage.vue";
+import LoginPage from "./components/LoginPage.vue";
+import RegisterPage from "./components/RegisterPage.vue";
 
 const routes = [
 	{ path: "/", name: "home", component: HomePage },
@@ -21,6 +23,8 @@ const routes = [
 	},
 	{ path: "/checkout", name: "checkout", component: CheckoutPage },
 	{ path: "/tickets", name: "my-tickets", component: TicketsPage },
+	{ path: "/login", name: "login", component: LoginPage },
+	{ path: "/register", name: "register", component: RegisterPage },
 ];
 
 const router = createRouter({

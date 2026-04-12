@@ -30,7 +30,7 @@ const imgVenue =
 
 		<!-- Hero Section -->
 		<section
-			class="max-w-360 mx-auto w-full px-6 py-24 relative overflow-hidden font-['Space_Grotesk']"
+			class="max-w-360 mx-auto w-full px-6 pt-6 pb-24 relative overflow-hidden font-['Space_Grotesk']"
 		>
 			<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 min-h-124">
 				<!-- Left: Text content -->
