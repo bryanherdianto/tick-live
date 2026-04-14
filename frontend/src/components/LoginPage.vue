@@ -1,6 +1,44 @@
 <script setup>
 import Footer from "./Footer.vue";
 import Header from "./Header.vue";
+import { ref } from "vue";
+import { useSignIn } from "@clerk/vue";
+import { useRouter, RouterLink } from "vue-router";
+
+const { isLoaded, signIn, setActive } = useSignIn();
+const router = useRouter();
+
+const email = ref("");
+const password = ref("");
+const errorMessage = ref("");
+
+const handleLogin = async () => {
+	if (!isLoaded.value) return;
+
+	try {
+		const result = await signIn.create({
+			identifier: email.value,
+			password: password.value,
+		});
+
+		if (result.status === "complete") {
+			await setActive({ session: result.createdSessionId });
+			router.push("/");
+		}
+	} catch (error) {
+		errorMessage.value = error.errors[0].message;
+	}
+};
+
+const handleGoogleLogin = async () => {
+	if (!isLoaded.value) return;
+
+	signIn.value.authenticateWithRedirect({
+		strategy: "oauth_google",
+		redirectUrl: "/sso-callback",
+		redirectUrlComplete: "/",
+	});
+};
 </script>
 
 <template>
@@ -81,6 +119,7 @@ import Header from "./Header.vue";
 							>
 							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
 								<input
+									v-model="email"
 									type="email"
 									id="email"
 									name="email"
@@ -91,13 +130,22 @@ import Header from "./Header.vue";
 						</div>
 
 						<div>
-							<label
-								for="password"
-								class="block text-[#1a1a1a] text-xs font-bold tracking-wider uppercase mb-2"
-								>PASSWORD</label
-							>
+							<div class="flex flex-row mb-2 items-end justify-between">
+								<label
+									for="password"
+									class="block text-[#1a1a1a] text-xs font-bold tracking-wider uppercase"
+									>PASSWORD</label
+								>
+								<a
+									href="#"
+									class="text-[#e63b2e] text-[10px] font-bold hover:text-[#cc2a1e] tracking-widest uppercase"
+								>
+									FORGOT ACCESS?
+								</a>
+							</div>
 							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
 								<input
+									v-model="password"
 									type="password"
 									id="password"
 									name="password"
@@ -107,47 +155,10 @@ import Header from "./Header.vue";
 							</div>
 						</div>
 
-						<div class="flex items-center justify-between pt-2">
-							<label class="flex items-center space-x-2 cursor-pointer group">
-								<div
-									class="w-5 h-5 border-[1.5px] border-[#1a1a1a] bg-white flex items-center justify-center transition-colors"
-								>
-									<input
-										type="checkbox"
-										class="opacity-0 absolute w-0 h-0 peer"
-									/>
-									<!-- Checked state tick placeholder -->
-									<svg
-										class="w-3.5 h-3.5 text-[#1a1a1a] hidden peer-checked:block"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="square"
-											stroke-linejoin="miter"
-											stroke-width="3"
-											d="M5 13l4 4L19 7"
-										></path>
-									</svg>
-								</div>
-								<span
-									class="text-[#1a1a1a] text-[10px] font-bold uppercase tracking-widest"
-									>REMEMBER SESSION</span
-								>
-							</label>
-
-							<a
-								href="#"
-								class="text-[#e63b2e] text-[10px] font-bold hover:text-[#cc2a1e] tracking-widest uppercase"
-							>
-								FORGOT ACCESS?
-							</a>
-						</div>
-
 						<button
 							type="submit"
 							class="w-full bg-[#1a1a1a] text-white text-[15px] font-bold py-4 uppercase tracking-widest hover:bg-[#333333] transition-colors mt-4"
+							@click.prevent="handleLogin"
 						>
 							AUTHENTICATE
 						</button>
@@ -166,6 +177,7 @@ import Header from "./Header.vue";
 
 					<button
 						class="w-full mt-6 flex items-center justify-center space-x-2 border-[3px] border-[#1a1a1a] bg-[#f5f0e8] text-[#1a1a1a] py-3.5 hover:bg-gray-100 transition-colors shadow-[4px_4px_0px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none"
+						@click.prevent="handleGoogleLogin"
 					>
 						<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
 							<path
@@ -183,10 +195,10 @@ import Header from "./Header.vue";
 							class="text-[#1a1a1a] text-[11px] font-semibold uppercase tracking-widest font-['Inter']"
 							>NEW TO THE SYSTEM?
 						</span>
-						<a
-							href="/register"
+						<RouterLink
+							to="/register"
 							class="text-[#0055ff] text-[11px] font-bold uppercase hover:text-[#003399] tracking-widest ml-1"
-							>JOIN_TICKIFY</a
+							>JOIN_TICKIFY</RouterLink
 						>
 					</div>
 				</div>

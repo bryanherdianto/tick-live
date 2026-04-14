@@ -1,26 +1,82 @@
 <script setup>
 import Footer from "./Footer.vue";
 import Header from "./Header.vue";
+import { ref } from "vue";
+import { useSignUp } from "@clerk/vue";
+import { useRouter, RouterLink } from "vue-router";
+
+const { isLoaded, signUp, setActive } = useSignUp();
+const router = useRouter();
+
+const firstName = ref("");
+const lastName = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const errorMessage = ref("");
+
+const handleRegister = async () => {
+	if (!isLoaded.value) return;
+	if (password.value !== confirmPassword.value) {
+		errorMessage.value = "PASSWORDS_DO_NOT_MATCH";
+		return;
+	}
+
+	try {
+		await signUp.value.create({
+			firstName: firstName.value,
+			lastName: lastName.value,
+			emailAddress: email.value,
+			password: password.value,
+		});
+
+		// Start configuration for email verification if needed
+		if (signUp.value.status === "complete") {
+			await setActive({ session: signUp.value.createdSessionId });
+			router.push("/");
+		} else {
+			// If verification is required, you'd handle it here
+			console.log("Verification required", signUp.value.status);
+		}
+	} catch (error) {
+		console.error(error);
+		if (error.errors && error.errors.length > 0) {
+			errorMessage.value = (
+				error.errors[0].longMessage || error.errors[0].message
+			).toUpperCase();
+		}
+	}
+};
+
+const handleGoogleLogin = async () => {
+	if (!isLoaded.value) return;
+
+	signUp.value.authenticateWithRedirect({
+		strategy: "oauth_google",
+		redirectUrl: "/sso-callback",
+		redirectUrlComplete: "/",
+	});
+};
 </script>
 
 <template>
 	<div class="min-h-screen bg-[#f5f0e8] flex flex-col font-sans">
 		<Header />
 
-		<main class="flex-grow flex flex-col lg:flex-row relative">
+		<main class="grow flex flex-col lg:flex-row relative">
 			<!-- Left Side: Aesthetic/Brand Section -->
 			<div
 				class="w-full lg:w-1/2 bg-[#ffcc00] border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-[#1a1a1a] p-8 md:p-16 xl:p-24 flex flex-col relative overflow-hidden"
 			>
 				<!-- Abstract Background Graphics -->
 				<div
-					class="absolute bottom-[-10%] right-[15%] w-[80%] h-[120%] border-[8px] border-[#1a1a1a] opacity-[0.08] pointer-events-none transform rotate-[15deg]"
+					class="absolute bottom-[-10%] right-[15%] w-[80%] h-[120%] border-8 border-[#1a1a1a] opacity-[0.08] pointer-events-none transform rotate-15"
 				></div>
 
 				<!-- Content -->
 				<div class="relative z-10 w-full xl:w-4/5 pt-8 font-['Space_Grotesk']">
 					<div
-						class="inline-block bg-[#f5f0e8] border-[2px] border-[#1a1a1a] text-[#1a1a1a] text-[10px] font-bold px-3 py-1.5 mb-14 tracking-widest uppercase"
+						class="inline-block bg-[#f5f0e8] border-2 border-[#1a1a1a] text-[#1a1a1a] text-[10px] font-bold px-3 py-1.5 mb-14 tracking-widest uppercase"
 					>
 						REGISTRATION_MODULE.V01
 					</div>
@@ -48,20 +104,41 @@ import Header from "./Header.vue";
 				</div>
 
 				<form action="#" method="POST" class="space-y-6 w-full max-w-xl">
-					<div>
-						<label
-							for="fullName"
-							class="block text-[#1a1a1a] text-[10px] font-bold tracking-widest uppercase mb-2"
-							>FULL NAME</label
-						>
-						<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
-							<input
-								type="text"
-								id="fullName"
-								name="fullName"
-								placeholder="FIRST_LAST"
-								class="w-full px-3 py-2.5 bg-transparent text-[#1a1a1a] placeholder-gray-400 text-sm focus:outline-none focus:ring-0 font-mono tracking-wider"
-							/>
+					<div class="flex flex-col sm:flex-row gap-6">
+						<div class="flex-1">
+							<label
+								for="firstName"
+								class="block text-[#1a1a1a] text-[10px] font-bold tracking-widest uppercase mb-2"
+								>FIRST NAME</label
+							>
+							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
+								<input
+									v-model="firstName"
+									type="text"
+									id="firstName"
+									name="firstName"
+									placeholder="FIRST NAME"
+									class="w-full px-3 py-2.5 bg-transparent text-[#1a1a1a] placeholder-gray-400 text-sm focus:outline-none focus:ring-0 font-mono tracking-wider"
+								/>
+							</div>
+						</div>
+
+						<div class="flex-1">
+							<label
+								for="lastName"
+								class="block text-[#1a1a1a] text-[10px] font-bold tracking-widest uppercase mb-2"
+								>LAST NAME</label
+							>
+							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
+								<input
+									v-model="lastName"
+									type="text"
+									id="lastName"
+									name="lastName"
+									placeholder="LAST NAME"
+									class="w-full px-3 py-2.5 bg-transparent text-[#1a1a1a] placeholder-gray-400 text-sm focus:outline-none focus:ring-0 font-mono tracking-wider"
+								/>
+							</div>
 						</div>
 					</div>
 
@@ -73,6 +150,7 @@ import Header from "./Header.vue";
 						>
 						<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
 							<input
+								v-model="email"
 								type="email"
 								id="email"
 								name="email"
@@ -91,6 +169,7 @@ import Header from "./Header.vue";
 							>
 							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
 								<input
+									v-model="password"
 									type="password"
 									id="password"
 									name="password"
@@ -104,10 +183,11 @@ import Header from "./Header.vue";
 							<label
 								for="confirmPassword"
 								class="block text-[#1a1a1a] text-[10px] font-bold tracking-widest uppercase mb-2"
-								>CONFIRM</label
+								>CONFIRM PASSWORD</label
 							>
 							<div class="border-[1.5px] border-[#1a1a1a] bg-transparent p-0.5">
 								<input
+									v-model="confirmPassword"
 									type="password"
 									id="confirmPassword"
 									name="confirmPassword"
@@ -118,51 +198,45 @@ import Header from "./Header.vue";
 						</div>
 					</div>
 
-					<div class="pt-2">
-						<label class="flex items-start space-x-3 cursor-pointer group">
-							<div
-								class="mt-[2px] w-5 h-5 shrink-0 border-[1.5px] border-[#1a1a1a] bg-transparent flex items-center justify-center transition-colors relative"
-							>
-								<input
-									type="checkbox"
-									class="peer opacity-0 absolute w-full h-full cursor-pointer"
-								/>
-								<svg
-									class="w-3.5 h-3.5 text-[#1a1a1a] hidden peer-checked:block pointer-events-none"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="square"
-										stroke-linejoin="miter"
-										stroke-width="3"
-										d="M5 13l4 4L19 7"
-									></path>
-								</svg>
-							</div>
-							<span
-								class="text-[#1a1a1a] text-[11px] font-medium uppercase tracking-widest leading-tight mt-0.75"
-							>
-								I ACCEPT THE
-								<a href="#" class="underline decoration-[#1a1a1a]"
-									>TERMS OF UTILITY</a
-								>
-								AND
-								<a href="#" class="underline decoration-[#1a1a1a]"
-									>PRIVACY PROTOCOL</a
-								>.
-							</span>
-						</label>
-					</div>
+					<p
+						v-if="errorMessage"
+						class="text-[#e63b2e] text-[10px] font-bold uppercase"
+					>
+						{{ errorMessage }}
+					</p>
 
 					<button
 						type="submit"
 						class="w-full bg-[#ffcc00] text-[#1a1a1a] text-[16px] font-bold py-4 uppercase tracking-widest hover:bg-[#e6b800] transition-colors mt-8 border-[3px] border-[#1a1a1a] shadow-[6px_6px_0px_0px_#1a1a1a] active:translate-y-1.5 active:translate-x-1.5 active:shadow-none"
+						@click.prevent="handleRegister"
 					>
 						INITIATE_ACCOUNT
 					</button>
 				</form>
+
+				<div class="mt-8 flex items-center justify-center space-x-3 opacity-30">
+					<div class="h-px bg-[#1a1a1a] grow"></div>
+					<span
+						class="text-[#1a1a1a] text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap font-['Space_Grotesk']"
+						>OR CONNECT WITH</span
+					>
+					<div class="h-px bg-[#1a1a1a] grow"></div>
+				</div>
+
+				<button
+					class="w-full mt-6 flex items-center justify-center space-x-2 border-[3px] border-[#1a1a1a] bg-[#f5f0e8] text-[#1a1a1a] py-3.5 hover:bg-gray-100 transition-colors shadow-[4px_4px_0px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none"
+					@click.prevent="handleGoogleLogin"
+				>
+					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+						<path
+							d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81Z"
+						/>
+					</svg>
+					<span
+						class="text-[12px] font-extrabold uppercase tracking-widest font-['Space_Grotesk']"
+						>SIGN UP WITH GOOGLE</span
+					>
+				</button>
 
 				<div
 					class="mt-14 border-t border-[#1a1a1a]/20 pt-8 flex items-center justify-between w-full max-w-xl"
@@ -172,12 +246,12 @@ import Header from "./Header.vue";
 						style="opacity: 0.6"
 						>EXISTING MEMBER?</span
 					>
-					<a
-						href="/login"
+					<RouterLink
+						to="/login"
 						class="text-[#0055ff] hover:text-[#003399] text-[12px] font-bold uppercase tracking-widest inline-flex items-center"
 					>
 						RETURN_TO_LOGIN
-					</a>
+					</RouterLink>
 				</div>
 			</div>
 		</main>

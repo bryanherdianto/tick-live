@@ -1,6 +1,7 @@
 <script setup>
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 import { RouterLink } from "vue-router";
+import { UserAvatar, Show } from "@clerk/vue";
 </script>
 
 <template>
@@ -19,14 +20,14 @@ import { RouterLink } from "vue-router";
 
 			<nav class="hidden md:flex items-center gap-8">
 				<RouterLink
-					to="/event"
+					to="/events"
 					class="border-2 border-transparent hover:bg-[#fc0] hover:border-[#1a1a1a] px-4 py-1.5 font-bold text-base uppercase font-['Space_Grotesk'] transition-colors"
 					>Events</RouterLink
 				>
-				<a
-					href="/venue"
+				<RouterLink
+					to="/venues"
 					class="border-2 border-transparent hover:bg-[#fc0] hover:border-[#1a1a1a] px-4 py-1.5 font-bold text-base uppercase font-['Space_Grotesk'] transition-colors"
-					>Venues</a
+					>Venues</RouterLink
 				>
 			</nav>
 
@@ -41,11 +42,21 @@ import { RouterLink } from "vue-router";
 						class="bg-transparent outline-none w-32 font-bold text-sm uppercase text-[#1a1a1a] placeholder:text-[#1a1a1a]/50 font-['Space_Grotesk']"
 					/>
 				</div>
-				<button
-					class="bg-[#e63b2e] border-2 border-[#1a1a1a] px-6 py-1.5 font-bold text-base text-white uppercase hover:bg-red-600 transition-colors font-['Space_Grotesk']"
-				>
-					Sign In
-				</button>
+				<Show when="signed-out">
+					<RouterLink
+						to="/login"
+						class="bg-[#e63b2e] border-2 border-[#1a1a1a] px-6 py-1.5 font-bold text-base text-white uppercase hover:bg-red-600 transition-colors font-['Space_Grotesk']"
+					>
+						Sign In
+					</RouterLink>
+				</Show>
+				<Show when="signed-in">
+					<div
+						class="p-1 bg-white border-2 border-[#1a1a1a] shadow-[4px_4px_0px_0px_#1a1a1a] flex items-center justify-center"
+					>
+						<UserAvatar rounded />
+					</div>
+				</Show>
 			</div>
 		</div>
 	</header>
